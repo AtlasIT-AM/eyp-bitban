@@ -22,11 +22,6 @@ define bitban::openresty	(
 	validate_absolute_path($basedir)
 	validate_absolute_path($srcdir)
 
-	if defined(Class['ntteam'])
-	{
-		ntteam::tag{ 'openresty': }
-	}
-
 	if($nginxctl)
 	{
 		validate_absolute_path($nginxctl)
@@ -150,7 +145,7 @@ define bitban::openresty	(
 	exec { "git clone lua-resty-template ${basedir}/${instancename}":
 		command => 'git clone https://github.com/bungle/lua-resty-template.git',
 		cwd     => "${srcdir}",
-		require => File["${basedir}/${instancename}-${version}/nginx/lua/lib/lua-utf8.so"],
+		require => File["${basedir}/${instancename}/nginx/lua/lib/lua-utf8.so"],
 		creates => "${srcdir}/lua-resty-template",
 	}
 
